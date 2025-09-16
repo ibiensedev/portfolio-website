@@ -1,0 +1,235 @@
+/* ==============================
+   Optional font (Inter)
+   (If you don't ship /fonts/Inter-Variable.woff2, load via Google Fonts in <head>)
+================================= */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ==============================
+   Soft reset + typography
+================================= */
+* { box-sizing: border-box; }
+html:focus-within { scroll-behavior: smooth; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  padding-top: 70px; /* Offset for .fixed-top navbar */
+}
+
+/* ==============================
+   Dark / Light theme mapped to Bootstrap vars
+================================= */
+:root{
+  /* Dark */
+  --bg: #0b0c0e;
+  --fg: #eef2f7;
+  --muted: #c7cfdb;
+  --card: #111418;
+  --section: #0e1115;
+  --border: #232a33;
+  --accent: #7aa2ff;
+
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--fg);
+  --bs-border-color: var(--border);
+  --bs-primary: var(--accent);
+
+  --text-on-dark: #eef2f7;
+  --text-on-light: #0f172a;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg: #ffffff;
+    --fg: #0f172a;
+    --muted: #334155;
+    --card: #f8fafc;
+    --section: #f4f7fb;
+    --border: #e2e8f0;
+    --accent: #335cff;
+
+    --bs-body-bg: var(--bg);
+    --bs-body-color: var(--fg);
+    --bs-border-color: var(--border);
+    --bs-primary: var(--accent);
+
+    --text-on-dark: #f8fafc;
+    --text-on-light: #0f172a;
+  }
+}
+
+/* ==============================
+   Accessibility
+================================= */
+.skip-link {
+  position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus {
+  left: 12px; top: 12px;
+  background: var(--bs-primary); color: #fff;
+  padding: 8px 12px; border-radius: .375rem; z-index: 1000;
+}
+
+/* ==============================
+   Navbar
+================================= */
+.navbar { width: 100%; }
+.navbar .nav-link { font-weight: 500; }
+
+/* ==============================
+   Hero section
+================================= */
+.hero {
+  padding: clamp(2rem, 4vw, 4rem) 0 1rem;
+  text-align: center;
+}
+.hero .avatar {
+  width: clamp(96px, 12vw, 160px);
+  height: clamp(96px, 12vw, 160px);
+  border-radius: 50%;
+  object-fit: cover; object-position: center;
+  border: 3px solid var(--bs-border-color);
+  display: inline-block;
+}
+.hero-title {
+  margin: .75rem 0 .25rem;
+  line-height: 1.1; font-weight: 800;
+  font-size: clamp(1.625rem, 2.5vw + 1rem, 3rem);
+  text-wrap: balance;
+}
+.hero-lead {
+  margin: .25rem 0 .5rem;
+  line-height: 1.35; font-weight: 600;
+  font-size: clamp(1rem, .7vw + .9rem, 1.25rem);
+  opacity: .95;
+}
+.hero-sub {
+  margin: .25rem auto 0; max-width: 60ch;
+  font-size: clamp(.95rem, .5vw + .8rem, 1.125rem);
+  color: var(--muted);
+}
+.hero .container { max-width: min(900px, 92vw); }
+
+/* ==============================
+   Sections
+================================= */
+section { margin-bottom: 3rem; }
+section h2 {
+  font-size: 1.75rem; margin-bottom: 1.5rem; font-weight: 700;
+  color: var(--fg); /* default contrast for dark background */
+}
+.bg-section { background-color: var(--section) !important; }
+
+/* Contrast guarantees: light vs. dark sections */
+.section-dark,
+.bg-section{
+  background-color: var(--section) !important;
+  color: var(--text-on-dark) !important;
+}
+.section-dark h1, .section-dark h2, .section-dark h3,
+.bg-section h1, .bg-section h2, .bg-section h3{
+  color: var(--text-on-dark) !important; opacity: 1 !important;
+}
+.section-light,
+.bg-light{
+  color: var(--text-on-light) !important;
+}
+.section-light h1, .section-light h2, .section-light h3,
+.bg-light h1, .bg-light h2, .bg-light h3{
+  color: var(--text-on-light) !important; opacity: 1 !important;
+}
+
+/* ==============================
+   Cards & lists (high contrast)
+================================= */
+.card {
+  background-color: var(--card) !important;
+  color: var(--fg);
+  border-color: var(--border);
+  box-shadow: none;
+}
+.card .text-muted { color: var(--muted) !important; }
+
+.list-group{
+  --bs-list-group-color: var(--fg);
+  --bs-list-group-bg: var(--card);
+  --bs-list-group-border-color: var(--border);
+}
+.list-group-item{
+  background-color: var(--card);
+  color: var(--fg);
+  border-color: var(--border);
+}
+
+/* ==============================
+   Experience inner lists
+================================= */
+.experience-list ul { margin: 0; padding-left: 1.2rem; }
+.experience-list li { margin-bottom: .4rem; }
+
+/* ==============================
+   Skills (badges)
+================================= */
+.skill-badge{
+  margin: .2rem;
+  font-size: .85rem;
+  padding: .4em .8em;
+  font-weight: 600;
+}
+
+/* ==============================
+   Languages (with flags)
+================================= */
+#languages .list-group-item { padding: .75rem 1rem; }
+.flag-icon{
+  width: 24px; height: 16px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  vertical-align: -2px;
+  margin-right: .5rem;
+}
+
+/* Make ALL flags perfectly round */
+.fi {
+  border-radius: 50% !important;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+/* ==============================
+   Contact
+================================= */
+#contact a { text-decoration: none; }
+#contact a:hover { text-decoration: underline; }
+
+/* ==============================
+   Footer
+================================= */
+.site-footer{
+  border-top: 1px solid var(--border);
+  padding: 1rem 0;
+  color: var(--muted);
+}
+
+/* ==============================
+   Print (PDF)
+================================= */
+@media print {
+  nav, .btn, .navbar, .hero .btn { display: none !important; }
+  body { background: #fff; color: #000; font-size: 12px; padding-top: 0; }
+  .card, .list-group-item { background: #fff !important; color: #000 !important; border-color: #ccc !important; }
+  section { margin-bottom: 1.5rem; }
+  a { color: black; text-decoration: none; }
+}
