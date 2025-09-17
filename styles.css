@@ -100,20 +100,126 @@ body {
   color: var(--accent) !important;
 }
 
+/* ===== Modern Navbar Look (theme-aware glass) ===== */
+.app-navbar {
+  backdrop-filter: saturate(160%) blur(8px);
+  -webkit-backdrop-filter: saturate(160%) blur(8px);
+  background-color: color-mix(in oklab, var(--bs-body-bg) 85%, transparent);
+  border-bottom: 1px solid var(--bs-border-color);
+  transition: box-shadow .2s ease;
+}
+
+/* Shadow on scroll for depth */
+.app-navbar.is-scrolled {
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+}
+
+/* Home button (brand) */
+.btn-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--bs-border-color);
+  color: var(--section-light-fg);
+  background: color-mix(in oklab, var(--bs-body-bg) 80%, transparent);
+}
+.btn-home:hover, .btn-home:focus {
+  background: color-mix(in oklab, var(--bs-body-bg) 65%, transparent);
+  color: var(--accent);
+}
+
+/* Nav link styling + active indicator */
+.navbar .nav-link {
+  position: relative;
+  padding: .5rem .75rem;
+  color: inherit;
+  opacity: .9;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  opacity: 1;
+  color: var(--accent);
+}
+.navbar .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 12px; right: 12px; bottom: 4px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Theme toggle pill (works in both themes) */
+.navbar #theme-toggle.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; padding: 0; border-radius: 10px; line-height: 1;
+  border-width: 1px; transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.navbar #theme-toggle i { pointer-events: none; font-size: 1.05rem; }
+
+/* Dark theme: light pill on dark navbar */
+[data-theme="dark"] .navbar #theme-toggle {
+  background-color: rgba(255,255,255,.10) !important;
+  color: #ffffff !important;
+  border-color: rgba(255,255,255,.35) !important;
+}
+[data-theme="dark"] .navbar #theme-toggle:hover,
+[data-theme="dark"] .navbar #theme-toggle:focus {
+  background-color: rgba(255,255,255,.18) !important;
+  color: #ffffff !important;
+}
+
+/* Light theme: dark pill on light navbar */
+[data-theme="light"] .navbar #theme-toggle {
+  background-color: rgba(15,23,42,.10) !important;
+  color: var(--section-light-fg) !important;
+  border-color: rgba(15,23,42,.30) !important;
+}
+[data-theme="light"] .navbar #theme-toggle:hover,
+[data-theme="light"] .navbar #theme-toggle:focus {
+  background-color: rgba(15,23,42,.18) !important;
+  color: var(--section-light-fg) !important;
+}
+
+/* Use the fixed light/dark navbar colors we agreed on */
+[data-theme="dark"] .navbar { background-color: var(--bg) !important; }
+[data-theme="dark"] .navbar .navbar-brand, 
+[data-theme="dark"] .navbar .nav-link { color: var(--text-on-dark) !important; }
+
+[data-theme="light"] .navbar { 
+  background-color: var(--section-light-bg) !important;
+  border-bottom: 1px solid var(--border);
+}
+[data-theme="light"] .navbar .navbar-brand, 
+[data-theme="light"] .navbar .nav-link { color: var(--section-light-fg) !important; }
+[data-theme="light"] .navbar .nav-link:hover, 
+[data-theme="light"] .navbar .nav-link:focus { color: var(--accent) !important; }
+
+/* Make the hamburger icon visible in light theme */
+[data-theme="light"] .navbar .navbar-toggler-icon {
+  filter: invert(1) grayscale(1) contrast(2);
+}
+
 /* ==============================
    Hero section
 ================================= */
-.hero {
-  padding: clamp(2rem, 4vw, 4rem) 0 1rem;
-  text-align: center;
-}
+/* Profile avatar muted */
 .hero .avatar {
   width: clamp(96px, 12vw, 160px);
   height: clamp(96px, 12vw, 160px);
   border-radius: 50%;
-  object-fit: cover; object-position: center;
+  object-fit: cover;
+  object-position: center;
   border: 3px solid var(--bs-border-color);
   display: inline-block;
+  filter: grayscale(35%) contrast(1.05);
+  transition: filter .4s ease;
+}
+.hero .avatar:hover {
+  filter: grayscale(0%) contrast(1.05); /* subtle hover reveal */
 }
 .hero-title {
   margin: .75rem 0 .25rem;
@@ -259,16 +365,6 @@ body {
 .experience-list li { margin-bottom: .4rem; }
 
 /* ==============================
-   Skills (badges)
-================================= */
-.skill-badge{
-  margin: .2rem;
-  font-size: .85rem;
-  padding: .4em .8em;
-  font-weight: 600;
-}
-
-/* ==============================
    Languages (with flags)
 ================================= */
 #languages .list-group-item { padding: .75rem 1rem; }
@@ -281,7 +377,7 @@ body {
   margin-right: .5rem;
 }
 
-/* Make ALL flags perfectly round */
+/* Flags muted by default */
 .fi {
   border-radius: 50% !important;
   width: 1.5em;
@@ -289,6 +385,11 @@ body {
   display: inline-block;
   overflow: hidden;
   object-fit: cover;
+  filter: grayscale(40%) contrast(1.1);
+  transition: filter .3s ease;
+}
+.fi:hover {
+  filter: grayscale(0%) contrast(1.1); /* back to full color */
 }
 
 /* ==============================
@@ -347,4 +448,315 @@ body {
   .card, .list-group-item { background: #fff !important; color: #000 !important; border-color: #ccc !important; }
   section { margin-bottom: 1.5rem; }
   a { color: black; text-decoration: none; }
+}
+
+/* ==============================
+   HERO FX (theme-aware, performant)
+================================= */
+
+/* Background: soft radial + glass glow, changes with theme */
+.hero--fx {
+  position: relative;
+  overflow: hidden;
+}
+.hero--fx::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 70%;
+  background:
+    radial-gradient(40% 40% at 50% 30%,
+      color-mix(in oklab, var(--bs-primary) 26%, transparent) 0%,
+      transparent 70%);
+  filter: blur(40px) saturate(120%);
+  pointer-events: none;
+  opacity: .55;
+}
+[data-theme="light"] .hero--fx::before { opacity: .35; }
+
+/* Avatar halo: animated conic ring behind the photo */
+.hero-avatar {
+  position: relative;
+  display: inline-block;
+  isolation: isolate; /* keeps the ring behind avatar */
+}
+.hero-avatar::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 0deg,
+      color-mix(in oklab, var(--bs-primary) 80%, #fff) 0%,
+      transparent 25%,
+      color-mix(in oklab, var(--bs-primary) 80%, #fff) 50%,
+      transparent 75%,
+      color-mix(in oklab, var(--bs-primary) 80%, #fff) 100%
+    );
+  filter: blur(8px) saturate(120%);
+  animation: hero-spin 10s linear infinite;
+  z-index: -1;
+  opacity: .6;
+}
+@keyframes hero-spin { to { transform: rotate(360deg); } }
+
+/* Subtle float on avatar */
+.hero .avatar {
+  transform: translateY(0);
+  transition: transform .6s ease;
+}
+.hero--fx .avatar:hover { transform: translateY(-4px); }
+
+/* Staggered reveal (prefers-reduced-motion respected) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero--fx .hero-avatar,
+  .hero--fx .hero-title,
+  .hero--fx .hero-lead,
+  .hero--fx .hero-sub {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: hero-fadeUp .6s ease forwards;
+  }
+  .hero--fx .hero-avatar { animation-delay: .05s; }
+  .hero--fx .hero-title  { animation-delay: .15s; }
+  .hero--fx .hero-lead   { animation-delay: .25s; }
+  .hero--fx .hero-sub    { animation-delay: .35s; }
+}
+@keyframes hero-fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll cue (always visible on both themes) */
+.scroll-cue {
+  position: relative;
+  display: inline-flex;
+  width: 26px; height: 42px;
+  margin-top: 28px;
+  border: 2px solid color-mix(in oklab, var(--bs-body-color) 65%, transparent);
+  border-radius: 999px;
+  opacity: .65;
+}
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 8px;
+  width: 4px; height: 8px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--bs-body-color);
+  animation: cue 1.3s ease-in-out infinite;
+}
+@keyframes cue {
+  0%   { transform: translateY(0);   opacity: 1; }
+  70%  { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0);   opacity: 0; }
+}
+
+/* Small polish: hero text weight/tightness */
+.hero-title { letter-spacing: -0.02em; }
+.hero-lead  { letter-spacing: -0.01em; }
+
+/* Safety: turn off heavy motion if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-avatar::before,
+  .scroll-cue::after { animation: none !important; }
+}
+
+/* ==============================
+   SECTION DECOR + TITLES
+================================= */
+.fx-section { position: relative; overflow: clip; }
+.fx-section::before {
+  content: "";
+  position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    color-mix(in oklab, var(--bs-primary) 40%, transparent),
+    transparent);
+  opacity: .6;
+}
+.fx-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: .3rem;
+}
+.fx-title::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -4px; height: 3px;
+  background: linear-gradient(90deg, var(--bs-primary), transparent 70%);
+  border-radius: 3px;
+  opacity: .7;
+}
+
+/* ==============================
+   CARDS: lift + subtle glow
+================================= */
+.fx-card { transform: translateY(0); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.fx-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+.fx-border-glow { position: relative; }
+.fx-border-glow::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit;
+  background: linear-gradient(135deg,
+    color-mix(in oklab, var(--bs-primary) 70%, transparent),
+    transparent 60%);
+  opacity: 0; transition: opacity .25s ease; z-index: -1;
+}
+.fx-border-glow:hover::after { opacity: .7; }
+
+/* ==============================
+   SKILLS chips
+================================= */
+.fx-chip {
+  transform: translateY(0);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+  filter: saturate(110%);
+}
+.fx-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.14);
+  filter: saturate(130%);
+}
+
+/* ==============================
+   LISTS (Languages)
+================================= */
+.fx-list .fx-item { transition: background-color .2s ease, transform .15s ease; }
+[data-theme="dark"] .fx-list .fx-item:hover { background-color: rgba(255,255,255,.05); }
+[data-theme="light"] .fx-list .fx-item:hover { background-color: rgba(15,23,42,.05); }
+.fx-list .fx-item:active { transform: scale(.995); }
+
+/* ==============================
+   EDUCATION: timeline rail
+================================= */
+.fx-timeline { position: relative; }
+.fx-timeline::before {
+  content: ""; position: absolute; top: .25rem; bottom: .25rem; left: -8px; width: 2px;
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--bs-primary) 60%, transparent),
+    transparent 70%);
+  opacity: .7;
+}
+@media (max-width: 575.98px) { .fx-timeline::before { left: 0; } }
+
+/* ==============================
+   SCROLL REVEALS (data-animate)
+================================= */
+[data-animate] { opacity: 0; transform: translateY(8px); will-change: transform, opacity; }
+.reveal-in { opacity: 1 !important; transform: none !important; transition: opacity .6s ease, transform .6s ease; }
+
+[data-animate="fade-up"]   { transform: translateY(14px); }
+[data-animate="fade-left"] { transform: translateX(14px); }
+[data-animate="fade-right"]{ transform: translateX(-14px); }
+[data-animate="pop"]       { transform: scale(.96); }
+
+.reveal-in[data-animate="fade-left"],
+.reveal-in[data-animate="fade-right"] { transform: none; }
+.reveal-in[data-animate="pop"]        { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ==============================
+   OPTIONAL GRID BACKDROP
+================================= */
+.fx-grid {
+  background-image: radial-gradient(color-mix(in oklab, var(--bs-border-color) 60%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, black, rgba(0,0,0,.85) 60%, transparent);
+}
+
+/* =========================
+   FX tokens (theme aware)
+   ========================= */
+.fx-section {
+  /* “surface” & “ink” used by borders, glows, lines, etc. */
+  --fx-surface: var(--section-light-bg);
+  --fx-ink: var(--section-light-fg);
+}
+[data-theme="dark"] .fx-section {
+  --fx-surface: var(--section);       /* dark surface */
+  --fx-ink: var(--text-on-dark);      /* light ink on dark */
+}
+
+/* Titles / headings inside FX sections */
+.fx-title { color: var(--fx-ink) !important; }
+
+/* Cards that glow on scroll */
+.fx-card {
+  background: var(--card) !important;
+  color: var(--bs-body-color);
+  border: 1px solid color-mix(in oklab, var(--fx-ink) 14%, transparent);
+  box-shadow:
+    0 10px 35px color-mix(in oklab, var(--fx-ink) 8%, transparent),
+    0 1px 0 color-mix(in oklab, var(--fx-ink) 12%, transparent) inset;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease;
+}
+.fx-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 45px color-mix(in oklab, var(--fx-ink) 12%, transparent),
+    0 1px 0 color-mix(in oklab, var(--fx-ink) 20%, transparent) inset;
+  border-color: color-mix(in oklab, var(--fx-ink) 22%, transparent);
+}
+
+/* Project “border glow” helper (keeps contrast in dark) */
+.fx-border-glow {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--fx-ink) 16%, transparent);
+}
+
+/* Timelines / separators inside FX sections */
+.fx-timeline::before {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  margin: .5rem 0 1.5rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--fx-ink) 18%, transparent),
+    color-mix(in oklab, var(--bs-primary) 30%, transparent),
+    color-mix(in oklab, var(--fx-ink) 18%, transparent)
+  );
+  border-radius: 2px;
+  opacity: .9;
+}
+
+/* FX list items (languages etc.) keep contrast in dark */
+.fx-list .list-group-item {
+  background: var(--card) !important;
+  color: var(--bs-body-color) !important;
+  border-color: color-mix(in oklab, var(--fx-ink) 16%, transparent) !important;
+}
+.fx-item { transition: transform .25s ease, box-shadow .25s ease; }
+.fx-item:hover { transform: translateY(-2px); box-shadow: 0 10px 28px color-mix(in oklab, var(--fx-ink) 10%, transparent); }
+
+/* Reveal (what scroll.js toggles) */
+[data-animate] { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.reveal-in [data-animate] { opacity: 1; transform: none; }
+
+/* ==============================
+   Skills layout
+================================= */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;      /* allow wrapping if they don’t fit in one row */
+  gap: 0.6rem;          /* space between badges */
+  justify-content: flex-start; /* change to center if you want centered */
+}
+
+.skills-list .badge {
+  font-size: .9rem;
+  padding: .5em 1em;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* Hover effect */
+.skills-list .badge:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,.18);
 }
