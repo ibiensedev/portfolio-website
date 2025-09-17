@@ -1,6 +1,11 @@
 const btn = document.getElementById('theme-toggle');
 const icon = btn?.querySelector('i');
 
+// navbar shadow on scroll
+const nav = document.querySelector('.app-navbar');
+const onScroll = () => nav?.classList.toggle('is-scrolled', window.scrollY > 4);
+onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
 function setIcon(mode) {
   if (!icon) return;
   icon.classList.remove('fa-sun', 'fa-moon', 'fa-regular');
@@ -27,8 +32,21 @@ btn?.addEventListener('click', () => {
   apply(next);
 });
 
-// (optional) react if user changes OS theme while page is open
+// react to OS theme changes (when no saved preference)
 window.matchMedia('(prefers-color-scheme: light)').addEventListener?.('change', e => {
   const saved = localStorage.getItem('theme');
   if (!saved) apply(e.matches ? 'light' : 'dark');
 });
+
+// One-off hero visibility (keeps hero effects lightweight)
+(function () {
+  const hero = document.querySelector('.hero--fx');
+  if (!hero || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      hero.classList.add('is-in');
+      io.disconnect();
+    }
+  }, { threshold: 0.25 });
+  io.observe(hero);
+})();
