@@ -1,16 +1,4 @@
 /* ==============================
-   Optional font (Inter)
-   (If you don't ship /fonts/Inter-Variable.woff2, load via Google Fonts in <head>)
-================================= */
-@font-face {
-  font-family: 'Inter';
-  src: url('fonts/Inter-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
-}
-
-/* ==============================
    Soft reset + typography
 ================================= */
 * { box-sizing: border-box; }
@@ -28,8 +16,7 @@ body {
 /* ==============================
    Dark / Light theme mapped to Bootstrap vars
 ================================= */
-:root{
-  /* Dark */
+:root[data-theme="dark"] {
   --bg: #0b0c0e;
   --fg: #eef2f7;
   --muted: #c7cfdb;
@@ -38,32 +25,37 @@ body {
   --border: #232a33;
   --accent: #7aa2ff;
 
+  --text-on-dark: #eef2f7;
+  --text-on-light: #0f172a;
+
+  --section-light-bg: #f4f7fb;   /* always a light surface */
+  --section-light-fg: #0f172a;   /* dark text for that surface */
+}
+
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --muted: #334155;
+  --card: #f8fafc;
+  --section: #f4f7fb;
+  --border: #e2e8f0;
+  --accent: #335cff;
+
+  --text-on-dark: #f8fafc;
+  --text-on-light: #0f172a;
+
+  --section-light-bg: #f4f7fb;   /* same in light theme */
+  --section-light-fg: #0f172a;   /* readable dark text */
+}
+
+/* Map theme vars to Bootstrap vars */
+:root[data-theme="dark"],
+:root[data-theme="light"] {
   --bs-body-bg: var(--bg);
   --bs-body-color: var(--fg);
   --bs-border-color: var(--border);
   --bs-primary: var(--accent);
-
-  --text-on-dark: #eef2f7;
-  --text-on-light: #0f172a;
-}
-@media (prefers-color-scheme: light){
-  :root{
-    --bg: #ffffff;
-    --fg: #0f172a;
-    --muted: #334155;
-    --card: #f8fafc;
-    --section: #f4f7fb;
-    --border: #e2e8f0;
-    --accent: #335cff;
-
-    --bs-body-bg: var(--bg);
-    --bs-body-color: var(--fg);
-    --bs-border-color: var(--border);
-    --bs-primary: var(--accent);
-
-    --text-on-dark: #f8fafc;
-    --text-on-light: #0f172a;
-  }
+  --bs-secondary-color: var(--muted);
 }
 
 /* ==============================
@@ -81,8 +73,32 @@ body {
 /* ==============================
    Navbar
 ================================= */
+/* ==============================
+   Navbar (fix light theme)
+=============================== */
 .navbar { width: 100%; }
 .navbar .nav-link { font-weight: 500; }
+
+[data-theme="dark"] .navbar {
+  background-color: var(--bg) !important;
+}
+[data-theme="dark"] .navbar .navbar-brand,
+[data-theme="dark"] .navbar .nav-link {
+  color: var(--text-on-dark) !important;
+}
+
+[data-theme="light"] .navbar {
+  background-color: var(--section-light-bg) !important;
+  border-bottom: 1px solid var(--border);
+}
+[data-theme="light"] .navbar .navbar-brand,
+[data-theme="light"] .navbar .nav-link {
+  color: var(--section-light-fg) !important;
+}
+[data-theme="light"] .navbar .nav-link:hover,
+[data-theme="light"] .navbar .nav-link:focus {
+  color: var(--accent) !important;
+}
 
 /* ==============================
    Hero section
@@ -109,7 +125,7 @@ body {
   margin: .25rem 0 .5rem;
   line-height: 1.35; font-weight: 600;
   font-size: clamp(1rem, .7vw + .9rem, 1.25rem);
-  opacity: .95;
+  color: var(--fg); /* explicit text color */
 }
 .hero-sub {
   margin: .25rem auto 0; max-width: 60ch;
@@ -119,32 +135,96 @@ body {
 .hero .container { max-width: min(900px, 92vw); }
 
 /* ==============================
-   Sections
+   Hero (inherits theme colors)
 ================================= */
-section { margin-bottom: 3rem; }
-section h2 {
-  font-size: 1.75rem; margin-bottom: 1.5rem; font-weight: 700;
-  color: var(--fg); /* default contrast for dark background */
+.hero {
+  padding: clamp(2rem, 4vw, 4rem) 0 1rem;
+  text-align: center;
+  background-color: var(--bg);
+  color: var(--fg);
 }
-.bg-section { background-color: var(--section) !important; }
 
-/* Contrast guarantees: light vs. dark sections */
-.section-dark,
-.bg-section{
-  background-color: var(--section) !important;
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p {
+  color: var(--fg);
+}
+.hero .hero-sub { color: var(--muted); }
+
+/* ==============================
+   Light vs Dark sections
+================================= */
+
+/* Dark theme → force dark for sections marked as bg-light */
+[data-theme="dark"] .section-light,
+[data-theme="dark"] .bg-light {
+  background-color: var(--section) !important; /* dark background */
   color: var(--text-on-dark) !important;
 }
-.section-dark h1, .section-dark h2, .section-dark h3,
-.bg-section h1, .bg-section h2, .bg-section h3{
-  color: var(--text-on-dark) !important; opacity: 1 !important;
+[data-theme="dark"] .section-light h1,
+[data-theme="dark"] .section-light h2,
+[data-theme="dark"] .section-light h3,
+[data-theme="dark"] .bg-light h1,
+[data-theme="dark"] .bg-light h2,
+[data-theme="dark"] .bg-light h3 {
+  color: var(--text-on-dark) !important;
 }
-.section-light,
-.bg-light{
+
+/* Light theme → keep them light */
+[data-theme="light"] .section-light,
+[data-theme="light"] .bg-light {
+  background-color: var(--section-light-bg, #f8fafc) !important;
   color: var(--text-on-light) !important;
 }
-.section-light h1, .section-light h2, .section-light h3,
-.bg-light h1, .bg-light h2, .bg-light h3{
-  color: var(--text-on-light) !important; opacity: 1 !important;
+[data-theme="light"] .section-light h1,
+[data-theme="light"] .section-light h2,
+[data-theme="light"] .section-light h3,
+[data-theme="light"] .bg-light h1,
+[data-theme="light"] .bg-light h2,
+[data-theme="light"] .bg-light h3 {
+  color: var(--text-on-light) !important;
+}
+
+/* ===== THEME TOGGLE: force visibility in both themes ===== */
+
+/* Common shape */
+.navbar #theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 10px;
+  line-height: 1;
+  border-width: 1px;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.navbar #theme-toggle i { pointer-events: none; font-size: 1.05rem; }
+
+/* Dark theme: light pill on dark navbar */
+[data-theme="dark"] .navbar #theme-toggle {
+  background-color: rgba(255,255,255,.10) !important;
+  color: #ffffff !important;
+  border-color: rgba(255,255,255,.35) !important;
+}
+[data-theme="dark"] .navbar #theme-toggle:hover,
+[data-theme="dark"] .navbar #theme-toggle:focus {
+  background-color: rgba(255,255,255,.18) !important;
+  color: #ffffff !important;
+}
+
+/* Light theme: dark pill on light navbar */
+[data-theme="light"] .navbar #theme-toggle {
+  background-color: rgba(15,23,42,.10) !important;     /* subtle dark gray */
+  color: var(--section-light-fg) !important;            /* dark icon */
+  border-color: rgba(15,23,42,.30) !important;
+}
+[data-theme="light"] .navbar #theme-toggle:hover,
+[data-theme="light"] .navbar #theme-toggle:focus {
+  background-color: rgba(15,23,42,.18) !important;
+  color: var(--section-light-fg) !important;
 }
 
 /* ==============================
@@ -152,11 +232,14 @@ section h2 {
 ================================= */
 .card {
   background-color: var(--card) !important;
-  color: var(--fg);
-  border-color: var(--border);
+  color: var(--fg) !important;
+  border-color: var(--border) !important;
   box-shadow: none;
 }
-.card .text-muted { color: var(--muted) !important; }
+.card .card-subtitle,
+.card .text-muted {
+  color: var(--muted) !important;
+}
 
 .list-group{
   --bs-list-group-color: var(--fg);
@@ -164,9 +247,9 @@ section h2 {
   --bs-list-group-border-color: var(--border);
 }
 .list-group-item{
-  background-color: var(--card);
-  color: var(--fg);
-  border-color: var(--border);
+  background-color: var(--card) !important;
+  color: var(--fg) !important;
+  border-color: var(--border) !important;
 }
 
 /* ==============================
@@ -211,8 +294,40 @@ section h2 {
 /* ==============================
    Contact
 ================================= */
-#contact a { text-decoration: none; }
-#contact a:hover { text-decoration: underline; }
+/* Dark theme: outline-light is fine, just make it a bit more visible */
+[data-theme="dark"] #contact .btn-outline-light {
+  color: #fff;
+  border-color: rgba(255,255,255,.45);
+  background-color: rgba(255,255,255,.06);
+}
+[data-theme="dark"] #contact .btn-outline-light:hover,
+[data-theme="dark"] #contact .btn-outline-light:focus {
+  background-color: rgba(255,255,255,.12);
+  color: #fff;
+}
+
+/* Light theme: invert outline-light so it’s visible on a light surface */
+[data-theme="light"] #contact .btn-outline-light {
+  color: var(--section-light-fg);                 /* dark text/icon */
+  border-color: rgba(15,23,42,.25);
+  background-color: rgba(15,23,42,.06);          /* soft gray pill */
+}
+[data-theme="light"] #contact .btn-outline-light:hover,
+[data-theme="light"] #contact .btn-outline-light:focus {
+  background-color: rgba(15,23,42,.12);
+  color: var(--section-light-fg);
+}
+
+#contact .btn {
+  border-radius: 14px;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem; /* icon size */
+}
 
 /* ==============================
    Footer
