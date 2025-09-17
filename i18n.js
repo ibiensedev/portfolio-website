@@ -10,11 +10,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const translations = {
   en: {
     // Meta
-    "meta.title": "Marcos Fernandez Sanchez — Full Stack Developer",
+    "meta.title": "Marcos Fernandez Sanchez | Full Stack Developer",
     "meta.description": "Full Stack Developer | Java, Spring Boot, React, JavaScript, SQL | Building scalable web applications & high-performance solutions.",
     // A11y
     "a11y.skip": "Skip to content",
-    "a11y.scrollToExperience": "Scroll to experience",
     // Nav
     "nav.home": "Home",
     "nav.homeTitle": "Home",
@@ -81,10 +80,9 @@ const translations = {
   },
 
   es: {
-    "meta.title": "Marcos Fernandez Sanchez — Desarrollador Full Stack",
+    "meta.title": "Marcos Fernandez Sanchez | Desarrollador Full Stack",
     "meta.description": "Desarrollador Full Stack | Java, Spring Boot, React, JavaScript, SQL | Desarrollo de aplicaciones web escalables y de alto rendimiento.",
     "a11y.skip": "Saltar al contenido",
-    "a11y.scrollToExperience": "Ir a experiencia",
     "nav.home": "Inicio",
     "nav.homeTitle": "Inicio",
     "nav.homeAria": "Inicio",
@@ -125,28 +123,27 @@ const translations = {
     "footer.name": "Marcos Fernandez Sanchez",
     // Experiencia (ES)
     "exp.freelance.roleTitle": "Freelance — Desarrollador Full Stack",
-    "exp.freelance.subtitle":  "jul 2025 – Presente · Sion, Suiza · Remoto",
+    "exp.freelance.subtitle":  "Jul 2025 – Presente · Sion, Suiza · Remoto",
     "exp.freelance.1": "Desarrollo de extremo a extremo para clientes: requisitos, implementación, despliegue y mantenimiento.",
     "exp.freelance.2": "Enfoque en soluciones escalables, fiables y centradas en el usuario.",
     "exp.ricoh.roleTitle": "Ricoh España — Desarrollador Full Stack",
-    "exp.ricoh.subtitle":  "abr 2024 – jul 2025 · Asturias, España · Remoto",
+    "exp.ricoh.subtitle":  "Abr 2024 – Jul 2025 · Asturias, España · Remoto",
     "exp.ricoh.1": "Construcción de funcionalidades empresariales en sistemas internos y de cara al cliente dentro de equipos ágiles.",
     "exp.ricoh.2": "Garantía de calidad del código con buenas prácticas, testing e integración continua.",
     "exp.minsait.roleTitle": "Minsait — Desarrollador Full Stack",
-    "exp.minsait.subtitle":  "mar 2023 – abr 2024 · A Coruña, España · Remoto",
+    "exp.minsait.subtitle":  "Mar 2023 – Abr 2024 · A Coruña, España · Remoto",
     "exp.minsait.1": "Entrega de proyectos de transformación digital a gran escala integrando servicios back-end con front-ends modernos.",
     "exp.minsait.2": "Mejora del rendimiento y la UX; participación en planificación de sprints y revisiones de código.",
     "exp.cap.roleTitle": "Capgemini — Desarrollador Back End",
-    "exp.cap.subtitle":  "mar 2022 – mar 2023 · Asturias, España · Híbrido",
+    "exp.cap.subtitle":  "Mar 2022 – Mar 2023 · Asturias, España · Híbrido",
     "exp.cap.1": "Diseño y mantenimiento de APIs y estructuras de base de datos para aplicaciones empresariales.",
     "exp.cap.2": "Colaboración con equipos internacionales usando metodologías ágiles y buenas prácticas de código limpio.",
   },
 
   fr: {
-    "meta.title": "Marcos Fernandez Sanchez — Développeur Full Stack",
+    "meta.title": "Marcos Fernandez Sanchez | Développeur Full Stack",
     "meta.description": "Développeur Full Stack | Java, Spring Boot, React, JavaScript, SQL | Création d’applications web évolutives et performantes.",
     "a11y.skip": "Aller au contenu",
-    "a11y.scrollToExperience": "Aller à l’expérience",
     "nav.home": "Accueil",
     "nav.homeTitle": "Accueil",
     "nav.homeAria": "Accueil",
@@ -187,19 +184,19 @@ const translations = {
     "footer.name": "Marcos Fernandez Sanchez",
     // Expérience (FR)
     "exp.freelance.roleTitle": "Freelance — Développeur Full Stack",
-    "exp.freelance.subtitle":  "juil. 2025 – Présent · Sion, Suisse · Télétravail",
+    "exp.freelance.subtitle":  "Juil 2025 – Présent · Sion, Suisse · Télétravail",
     "exp.freelance.1": "Développement de bout en bout pour des clients : exigences, implémentation, déploiement et maintenance.",
     "exp.freelance.2": "Focalisé sur des solutions évolutives, fiables et centrées utilisateur.",
     "exp.ricoh.roleTitle": "Ricoh Espagne — Développeur Full Stack",
-    "exp.ricoh.subtitle":  "avr. 2024 – juil. 2025 · Asturies, Espagne · Télétravail",
+    "exp.ricoh.subtitle":  "Avr 2024 – Juil 2025 · Asturies, Espagne · Télétravail",
     "exp.ricoh.1": "Développement de fonctionnalités d’entreprise sur des systèmes internes et externes au sein d’équipes agiles.",
     "exp.ricoh.2": "Assurance qualité du code avec bonnes pratiques, tests et CI.",
     "exp.minsait.roleTitle": "Minsait — Développeur Full Stack",
-    "exp.minsait.subtitle":  "mars 2023 – avr. 2024 · La Corogne, Espagne · Télétravail",
+    "exp.minsait.subtitle":  "Mars 2023 – Avr 2024 · La Corogne, Espagne · Télétravail",
     "exp.minsait.1": "Livraison de projets de transformation numérique à grande échelle intégrant des services back-end et des front-ends modernes.",
     "exp.minsait.2": "Amélioration des performances et de l’UX ; participation aux plannings de sprint et aux revues de code.",
     "exp.cap.roleTitle": "Capgemini — Développeur Back End",
-    "exp.cap.subtitle":  "mars 2022 – mars 2023 · Asturies, Espagne · Hybride",
+    "exp.cap.subtitle":  "Mars 2022 – Mars 2023 · Asturies, Espagne · Hybride",
     "exp.cap.1": "Conception et maintenance d’API et de bases de données pour des applications d’entreprise.",
     "exp.cap.2": "Collaboration avec des équipes internationales utilisant des méthodologies agiles et des pratiques de code propre.",
   }
