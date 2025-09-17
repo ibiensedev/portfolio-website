@@ -10,11 +10,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const translations = {
   en: {
     // Meta
-    "meta.title": "Marcos Fernandez Sanchez — Full Stack Developer",
+    "meta.title": "Marcos Fernandez Sanchez | Full Stack Developer",
     "meta.description": "Full Stack Developer | Java, Spring Boot, React, JavaScript, SQL | Building scalable web applications & high-performance solutions.",
     // A11y
     "a11y.skip": "Skip to content",
-    "a11y.scrollToExperience": "Scroll to experience",
     // Nav
     "nav.home": "Home",
     "nav.homeTitle": "Home",
@@ -81,10 +80,9 @@ const translations = {
   },
 
   es: {
-    "meta.title": "Marcos Fernandez Sanchez — Desarrollador Full Stack",
+    "meta.title": "Marcos Fernandez Sanchez | Desarrollador Full Stack",
     "meta.description": "Desarrollador Full Stack | Java, Spring Boot, React, JavaScript, SQL | Desarrollo de aplicaciones web escalables y de alto rendimiento.",
     "a11y.skip": "Saltar al contenido",
-    "a11y.scrollToExperience": "Ir a experiencia",
     "nav.home": "Inicio",
     "nav.homeTitle": "Inicio",
     "nav.homeAria": "Inicio",
@@ -143,10 +141,9 @@ const translations = {
   },
 
   fr: {
-    "meta.title": "Marcos Fernandez Sanchez — Développeur Full Stack",
+    "meta.title": "Marcos Fernandez Sanchez | Développeur Full Stack",
     "meta.description": "Développeur Full Stack | Java, Spring Boot, React, JavaScript, SQL | Création d’applications web évolutives et performantes.",
     "a11y.skip": "Aller au contenu",
-    "a11y.scrollToExperience": "Aller à l’expérience",
     "nav.home": "Accueil",
     "nav.homeTitle": "Accueil",
     "nav.homeAria": "Accueil",
